@@ -1,6 +1,6 @@
 <template>
   <div class="guide-grid">
-    <Guide v-for="(guide, index) in guides" :key="index" :data="guide" />
+    <Guide v-for="(guide, index) in guides" :key="index" :data="guide" :id="index" />
   </div>
 </template>
 

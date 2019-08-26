@@ -23,13 +23,21 @@ export const getters = {
 
 export const mutations = {
   addGuide: (state, payload) => {
-    console.log(payload);
     state.guides.push(payload);
+  },
+  deleteGuide: (state, payload) => {
+    console.log(payload, state);
+    state.guides.splice(payload, 1);
   }
 }
 
 export const actions = {
   createGuide({ commit }, content) {
     commit('addGuide', content)
+  },
+  deleteGuide({ commit }, content) {
+    console.log(content);
+
+    commit('deleteGuide', content)
   }
 }

@@ -2,7 +2,7 @@
   <div class="guide">
     <div class="guide__header">
       <span class="guide__pagename">{{ data.name }}</span>
-      <span class="guide__header__edit" @click.prevent="removeGuide">Delete</span>
+      <span class="guide__header__edit" @click.prevent="removeGuide(id)">Delete</span>
     </div>
     <div class="guide__inner">
       <div class="guide__goal">
@@ -31,6 +31,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: Number,
+      default: 0
+    },
     data: {
       type: Object,
       default: () => {
@@ -49,9 +53,11 @@ export default {
     }
   },
   methods: {
-    removeGuide() {
-      confirm("Are you sure you want to delete the guide?")
-      // API Request
+    removeGuide(id) {
+      if (confirm("Are you sure you want to delete the guide?")) {
+        this.$store.dispatch('deleteGuide', id);
+        // API Request
+      }
     },
     createSection() {
       const name = prompt('Please enter a name for your section:', '');
