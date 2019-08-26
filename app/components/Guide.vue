@@ -14,10 +14,10 @@
         <p v-else class="guide__item__temp">Add a goal</p>
       </div>
       <div class="guide__list" v-if="data.sections">
-        <div class="guide__item" v-for="(section, index) in data.sections" :key="index">
+        <div class="guide__item" v-for="(section, sectionIndex) in data.sections" :key="sectionIndex">
           <div class="guide__item__header">
             <span>{{ section.name }}</span>
-            <span class="guide__item__header__edit">Edit</span>
+            <span class="guide__item__header__edit" @click.prevent="deleteSection(id, sectionIndex)">Delete</span>
           </div>
           <p v-if="section.content && section.content.length">{{ section.content }}</p>
           <p v-else class="guide__item__temp">Add content...</p>
@@ -68,6 +68,15 @@ export default {
       this.$store.dispatch('createSection', section)
 
       // API Request
+    },
+    deleteSection(id, sectionIndex) {
+      if (confirm("Are you sure you want to delete the section?")) {
+        const section = {
+          id,
+          sectionIndex
+        }
+        this.$store.dispatch('deleteSection', section);
+      }
     }
   },
 }

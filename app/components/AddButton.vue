@@ -12,7 +12,7 @@ export default {
       if (name == null || name == '') return
 
       // Create Guide
-      const guide = { name, sections: [] }
+      const guide = { name }
       this.$store.dispatch('createGuide', guide);
     }
  },

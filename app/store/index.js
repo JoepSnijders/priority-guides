@@ -29,29 +29,33 @@ export const mutations = {
     state.guides.splice(payload, 1);
   },
   createSection: (state, payload) => {
-    console.log(payload, state)
-    const newContent = {
+    const newSection = {
       name: payload.name
     }
+    state.guides[payload.id].sections.push(newSection);
+  },
+  deleteSection: (state, payload) => {
+    console.log(payload);
 
-    // foundIndex.sections.push(newContent);
-    console.log(state.guides[payload.id]);
-
-    state.guides[payload.id].sections.push(newContent);
-
+    state.guides[payload.id].sections.splice(payload.sectionIndex, 1);
   }
 }
 
 export const actions = {
   createGuide({ commit }, content) {
-    console.log(content);
-
-    commit('addGuide', content)
+    const guide = {
+      name: content.name,
+      sections: []
+    }
+    commit('addGuide', guide)
   },
   deleteGuide({ commit }, content) {
     commit('deleteGuide', content)
   },
   createSection({ commit }, content) {
     commit('createSection', content)
+  },
+  deleteSection({ commit }, content) {
+    commit('deleteSection', content)
   }
 }
