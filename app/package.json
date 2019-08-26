@@ -1,0 +1,19 @@
+{
+  "name": "priority-guides",
+  "version": "1.0.0",
+  "description": "Tool for creating priority guides",
+  "author": "Joep Snijders",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "node-sass": "^4.12.0",
+    "nuxt": "^2.0.0",
+    "sass-loader": "^7.3.1"
+  },
+  "devDependencies": {}
+}

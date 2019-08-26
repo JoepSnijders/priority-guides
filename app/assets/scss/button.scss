@@ -1,0 +1,36 @@
+.button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+
+  color: #fff;
+  font: inherit;
+  text-align: center;
+  line-height: normal;
+
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+
+  height: 48px;
+  background: $green;
+  border-radius: 4px;
+  font-weight: bold;
+
+  &:hover {
+    background: darken($green, 10%);
+  }
+
+  &--bordered {
+    color: #333;
+    background: #F7F7FA;
+    border: 1px solid #BDC5CF;
+
+    &:hover {
+      background: darken($light-blue, 5%);
+    }
+  }
+}
