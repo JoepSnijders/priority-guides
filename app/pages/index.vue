@@ -1,24 +1,26 @@
 <template>
   <div class="canvas">
     <GuideGrid />
+    <AddButton />
   </div>
 </template>
 
 <script>
 import GuideGrid from '@/components/GuideGrid.vue';
+import AddButton from '@/components/AddButton.vue';
+
 export default {
   components: {
-    GuideGrid
+    GuideGrid,
+    AddButton
   },
 }
 </script>
 
-<style>
+<style lang="scss">
 .canvas {
-  background: #f7f7f7;
-  position: absolute;
-
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

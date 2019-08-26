@@ -1,25 +1,27 @@
 <template>
   <div class="guide-grid">
-    <Guide />
-    <Guide />
+    <Guide v-for="(guide, index) in guides" :key="index" :data="guide" />
   </div>
 </template>
 
 <script>
 import Guide from '@/components/Guide.vue';
 export default {
-components: {
-  Guide
-},
+  data() {
+    return {
+      guides: this.$store.state.guides
+    }
+  },
+  components: {
+    Guide
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .guide-grid {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
 
   margin-top: 4rem;
 }

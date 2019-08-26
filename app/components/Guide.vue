@@ -1,7 +1,8 @@
 <template>
   <div class="guide">
     <div class="guide__header">
-      <span class="guide__pagename">Home</span>
+      <span class="guide__pagename">{{ data.name }}</span>
+      <span class="guide__header__edit" @click.prevent="removeGuide">Delete</span>
     </div>
     <div class="guide__inner">
       <div class="guide__goal">
@@ -9,29 +10,67 @@
           <span>Goal</span>
           <span class="guide__goal__header__edit">Edit</span>
         </div>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptas!</p>
+        <p v-if="data.goal">{{ data.goal.content }}</p>
+        <p v-else class="guide__item__temp">Add a goal</p>
       </div>
-      <div class="guide__list">
-        <div class="guide__item">
+      <div class="guide__list" v-if="data.sections">
+        <div class="guide__item" v-for="(section, index) in data.sections" :key="index">
           <div class="guide__item__header">
-            <span>Hero</span>
+            <span>{{ section.name }}</span>
             <span class="guide__item__header__edit">Edit</span>
           </div>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptas!</p>
+          <p v-if="section.content.length">{{ section.content }}</p>
+          <p v-else class="guide__item__temp">Add content...</p>
         </div>
       </div>
-      <button class="guide__add button button--bordered" role="button" aria-label="Add item">Add row</button>
+      <button class="guide__add button button--bordered" role="button" aria-label="Add item" @click.prevent="createSection">Add row</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      sections: [
+        {
+          name: 'Hero',
+          content: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptas!'
+        }
+      ]
+    }
+  },
+  methods: {
+    removeGuide() {
+      confirm("Are you sure you want to delete the guide?")
+      // API Request
+    },
+    createSection() {
+      const name = prompt('Please enter a name for your section:', '');
+      if (name == null || name == '') return
 
+      // Create Section
+      const section = {
+        name,
+        content: ''
+      }
+      this.sections.push(section);
+
+      // API Request
+    }
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .guide {
   margin-right: 2rem;
 
@@ -41,6 +80,16 @@ export default {
     align-items: center;
 
     margin-bottom: .5rem;
+
+    text-transform: capitalize;
+
+    &__edit {
+      display: none;
+      opacity: .6;
+      font-size: .85rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
   &__pagename {
     color: #999;
@@ -70,8 +119,11 @@ export default {
       font-size: 1rem;
       font-weight: bold;
 
+      text-transform: capitalize;
+
       &__edit {
         display: none;
+        opacity: .6;
         font-size: .8rem;
       }
     }
@@ -95,6 +147,10 @@ export default {
 
     cursor: pointer;
 
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
     &__header {
       display: flex;
       align-items: center;
@@ -103,11 +159,17 @@ export default {
 
       font-size: 1rem;
       font-weight: bold;
+      text-transform: capitalize;
 
       &__edit {
         display: none;
+        opacity: .6;
         font-size: .8rem;
       }
+    }
+
+    &__temp {
+      opacity: .5;
     }
 
     &:hover {
@@ -118,6 +180,12 @@ export default {
   }
   &__add {
     width: 100%;
+  }
+
+  &:hover {
+    .guide__header__edit {
+      display: inline-block;
+    }
   }
 }
 </style>
