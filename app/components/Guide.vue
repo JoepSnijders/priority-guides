@@ -1,7 +1,7 @@
 <template>
   <div class="guide">
     <div class="guide__header">
-      <span class="guide__pagename">{{ data.name }}</span>
+      <span class="guide__pagename">{{ id }} - {{ data.name }}</span>
       <span class="guide__header__edit" @click.prevent="removeGuide(id)">Delete</span>
     </div>
     <div class="guide__inner">
@@ -19,11 +19,11 @@
             <span>{{ section.name }}</span>
             <span class="guide__item__header__edit">Edit</span>
           </div>
-          <p v-if="section.content.length">{{ section.content }}</p>
+          <p v-if="section.content && section.content.length">{{ section.content }}</p>
           <p v-else class="guide__item__temp">Add content...</p>
         </div>
       </div>
-      <button class="guide__add button button--bordered" role="button" aria-label="Add item" @click.prevent="createSection">Add row</button>
+      <button class="guide__add button button--bordered" role="button" aria-label="Add item" @click.prevent="createSection(id)">Add row</button>
     </div>
   </div>
 </template>
@@ -59,16 +59,13 @@ export default {
         // API Request
       }
     },
-    createSection() {
+    createSection(id) {
       const name = prompt('Please enter a name for your section:', '');
       if (name == null || name == '') return
 
       // Create Section
-      const section = {
-        name,
-        content: ''
-      }
-      this.sections.push(section);
+      const section = { name,  id }
+      this.$store.dispatch('createSection', section)
 
       // API Request
     }
@@ -78,7 +75,7 @@ export default {
 
 <style lang="scss">
 .guide {
-  margin-right: 2rem;
+  margin: 0 0 2rem 2rem;
 
   &__header {
     display: flex;
