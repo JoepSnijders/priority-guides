@@ -10,8 +10,8 @@
           <span>Goal</span>
           <span class="guide__goal__header__edit">Edit</span>
         </div>
-        <p v-if="data.goal">{{ data.goal.content }}</p>
-        <p v-else class="guide__item__temp">Add a goal</p>
+        <p v-if="data.goal" contenteditable @input="updateGoal">{{ data.goal.content }}</p>
+        <p v-else class="guide__item__temp" contenteditable @input="updateGoal">Add a goal</p>
       </div>
       <div class="guide__list" v-if="data.sections">
         <div class="guide__item" v-for="(section, sectionIndex) in data.sections" :key="sectionIndex">
@@ -19,8 +19,8 @@
             <span>{{ section.name }}</span>
             <span class="guide__item__header__edit" @click.prevent="deleteSection(id, sectionIndex)">Delete</span>
           </div>
-          <p v-if="section.content && section.content.length">{{ section.content }}</p>
-          <p v-else class="guide__item__temp">Add content...</p>
+          <p v-if="section.content && section.content.length" contenteditable @input="updateSection">{{ section.content }}</p>
+          <p v-else class="guide__item__temp" contenteditable @input="updateSection">Add content...</p>
         </div>
       </div>
       <button class="guide__add button button--bordered" role="button" aria-label="Add item" @click.prevent="createSection(id)">Add row</button>
@@ -77,6 +77,14 @@ export default {
         }
         this.$store.dispatch('deleteSection', section);
       }
+    },
+    updateSection(e) {
+      console.log(e.target.innerText);
+      // TODO update vuex
+    },
+    updateGoal(e) {
+      console.log(e.target.innerText);
+      // TODO update vuex
     }
   },
 }
