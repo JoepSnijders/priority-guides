@@ -1,9 +1,13 @@
 <template>
-  <div class="canvas">
-    <div data-netlify-identity-menu></div>
-    <GuideGrid />
-    <AddButton />
-    <div id="netlify-modal"></div>
+  <div class="app">
+    <header>
+      <div data-netlify-identity-menu></div>
+    </header>
+    <div class="canvas">
+      <GuideGrid />
+      <AddButton />
+      <div id="netlify-modal"></div>
+    </div>
   </div>
 </template>
 
@@ -26,9 +30,26 @@ export default {
 </script>
 
 <style lang="scss">
+header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+  border-bottom: 1px solid #ddd;
+}
 .canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+div[data-netlify-identity-menu] {
+  margin-left: auto;
+}
+.netlify-identity-item {
+  display: inline-block;
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
 }
 </style>
